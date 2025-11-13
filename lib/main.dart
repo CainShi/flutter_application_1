@@ -29,6 +29,29 @@ class TestPage extends StatefulWidget {
 class _TestPageState extends State<TestPage> {
   // This widget is the root of your application
   int _count = 0;
+  bool _toggle = true;
+  get _dyWidget => _toggle
+      ? const Text('WidgetOne')
+      : SizedBox(
+        width: 200,
+        height: 200,
+        child: const ColoredBox(color: Colors.greenAccent));
+
+  get _listView => ListView(
+    children: <Widget>[
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+      Text('XIAOMI', style: TextStyle(fontSize: 42),),
+    ],
+  );
   @override  
   Widget build(BuildContext context) {  
     return Scaffold(
@@ -54,11 +77,14 @@ class _TestPageState extends State<TestPage> {
                 color: Colors.amber,
                 child: Center(child: Text('Box', style: TextStyle(color: Colors.white),))),
             ),
+            _dyWidget,
+            TestWidget(),
+            Expanded(child: _listView),
           ],
         )
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCount,
+        onPressed: _updateWidget,
         tooltip: "IncrementCount",
         child: const Icon(Icons.add),
       ),
@@ -69,5 +95,20 @@ class _TestPageState extends State<TestPage> {
     setState(() {
       _count++;
     });
+  }
+
+  void _updateWidget() {
+     setState(() {
+       _toggle = !_toggle;
+     });
+  }
+}
+
+class TestWidget extends StatelessWidget {
+  const TestWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('this is diy widget.');
   }
 }
